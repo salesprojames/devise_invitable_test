@@ -6,4 +6,10 @@ class User < ActiveRecord::Base
 
   has_many :project_users
   has_many :projects, through: :project_users
+
+  after_create :send_notification
+
+  def send_notification
+  	AdminMailer.new_user(self).deliver
+  end
 end
