@@ -4,7 +4,7 @@ class ProjectUser < ActiveRecord::Base
 
 	attr_accessor :email
 
-	before_validation :set_user_id, lambda { |pu| !!pu.email }
+	before_validation :set_user_id, if: lambda { |pu| !!pu.email }
 
 	def set_user_id
 		existing_user = User.find_by(email: email)
